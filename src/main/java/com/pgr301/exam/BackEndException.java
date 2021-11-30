@@ -11,6 +11,6 @@ public class BackEndException extends RuntimeException {
 	}
 	public BackEndException() {
 		super();
-		BankAccountController.postError();
+		BankAccountController.postError(this);
 	}
 }

@@ -54,3 +54,38 @@ Team Dino er problematisk ettersom Team Dino
    I verste fall kan man bruke manuelle tester
    hvor automatiske tester ikke strekker til.
    I hovedsak skal det meste være automatisk.
+   
+## Oppgave: Pipeline
+
+For denne oppgaven brukte jeg GitHub Actions
+ettersom det er lett å sette opp og krever
+ikke at jeg forlater GitHub eller kobler
+til noe annet. Actions fungerer veldig likt
+som Travis og CircleCI med oppsett, integrasjon
+og konfigurasjon. Filene ligger i
+`.github`- mappen under `workflow`.
+Denne workflowen bygger koden og lager
+en `.jar`-fil, og repositoriet er 
+lagt opp slik at man ikke kan pushe kode
+som ikke kompilerer til `master/main`.
+
+Jeg fikk dessverre ikke til å lage
+enhetstester til programmet, men hadde
+lagt opp tester for å sjekke API-elementene
+samt tilkobling til en mock-server.
+
+# Oppgave: Feedback
+
+Jeg har gjort endringer i programmet som
+produserer metrics på exception-klassene
+i programmet. Dette er for å skaffe en
+oversikt over hvorfor programmet produserer
+exceptions hele tiden.
+Måten metrics er lagt inn i klassene
+er ved å legge funksjonskallet til
+metrics-koden inn i constructor til klassen
+og samtidig kalle `super()` for å forårsake
+en exception.
+
+Metrics blir sendt til Influx
+sammen med 

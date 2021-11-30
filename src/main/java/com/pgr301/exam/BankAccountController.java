@@ -29,8 +29,12 @@ public class BankAccountController implements ApplicationListener<ApplicationRea
     protected static void postError(String msg) {
        Metrics.counter("bankaccount.errors", "error", msg, "cause", null).increment();
     }
-    protected static void postError() {
-        Metrics.counter("bankaccount.errors", "error", null, "cause", null).increment();
+    protected static void postError(RuntimeException ex) {
+        StringBuilder output = new StringBuilder();
+        for (StackTraceElement elem : ex.getStackTrace()) {
+           output.append(elem.toString()).append("\n");
+        }
+        Metrics.counter("bankaccount.errors", "error", output.toString(), "cause", null).increment();
     }
 
     @PostMapping(path = "/account/{fromAccount}/transfer/{toAccount}", consumes = "application/json", produces = "application/json")
@@ -67,7 +71,7 @@ public class BankAccountController implements ApplicationListener<ApplicationRea
 
         public AccountNotFoundException() {
            super();
-            BankAccountController.postError();
+            BankAccountController.postError(this);
         }
     }
 }
