@@ -23,8 +23,6 @@ public class BankAccountController implements ApplicationListener<ApplicationRea
     @Autowired
     private BankingCoreSystmeService bankService;
 
-    private void postStatus() {}
-
     private static void postError(String msg, Throwable cause) {
         Metrics.counter("bankaccount.errors", "error", msg, "cause", cause.getMessage()).increment();
     }
