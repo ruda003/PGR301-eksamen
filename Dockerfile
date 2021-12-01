@@ -20,7 +20,7 @@ RUN \
     wget https://download.java.net/java/early_access/jdk18/25/GPL/openjdk-18-ea+25_linux-x64_bin.tar.gz && \
     tar xzvf openjdk-18-ea+25_linux-x64_bin.tar.gz && \
     cd jdk-18/bin && \
-    mv java /usr/bin && \
+    ln -s ~/jdk-18/java /usr/bin/java && \
     git clone https://github.com/ruda003/PGR301-eksamen.git && cd PGR301-eksamen && \
     mvn -B package --file pom.xml && \
     cd target && \
