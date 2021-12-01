@@ -168,3 +168,9 @@ For å kjøre to containere samtidig, endrer du porten:
 docker run --name "your-name-here" -it "container-name" -p 7777:8080
 docker run --name "your-other-name-here" -it "container-name" -p 8888:8080
 ```
+
+Jeg prøvde å få til pushing til ECS, men dette har feilet.
+Dette er fordi jeg har brukt feil fremgangsmåte,
+og vil rette dette opp i fremtidige prosjekter.
+For nå lar jeg denne delen sitte og leverer oppgaven
+som den er.
