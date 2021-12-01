@@ -19,6 +19,7 @@ jobs:
       - name: Build Docker image
         run: docker build -t "$(git rev-parse --short HEAD)" .
       - name: Push to Amazon ECR
+        if: always()
         uses: jwalton/gh-ecr-push@v1.3.3
         with:
           access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
