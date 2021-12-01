@@ -17,9 +17,8 @@ jobs:
         run: |
           echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
       - name: Build Docker image
-        run: docker build -t "$(git rev-parse --short HEAD)" .
+        run: docker build -t "${{ steps.vars.outputs.sha_short }}" .
       - name: Push to Amazon ECR
-        if: always()
         uses: jwalton/gh-ecr-push@v1.3.3
         with:
           access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
