@@ -25,4 +25,4 @@ RUN \
     git clone https://github.com/ruda003/PGR301-eksamen.git && cd PGR301-eksamen && \
     mvn -B package --file pom.xml && \
     cd target && \
-    java -jar demo-0.0.1-SNAPSHOT.jar
+    JAVA_HOME=/ java -jar demo-0.0.1-SNAPSHOT.jar
