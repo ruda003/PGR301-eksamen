@@ -1,14 +1,23 @@
-- name: Setup Terraform
-  uses: hashicorp/setup-terraform@v1
-  with:
-    cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
-- name: Terraform Init
-  id: init
-  if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
-  run: cd infra && terraform init
-- name: Terraform Apply
-  if: (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master') && github.event_name == 'push'
-  run: cd infra && terraform apply
-- name: Terraform Plan
-  if: (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master') && github.event_name == 'pull_request'
-  run: cd infra && terraform plan
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+     - name: Setup Terraform
+       uses: hashicorp/setup-terraform@v1
+       with:
+         cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+     - name: Terraform Init
+       id: init
+       if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+       run: cd infra && terraform init
+     - name: Terraform Apply
+       if: (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master') && github.event_name == 'push'
+       run: cd infra && terraform apply
+     - name: Terraform Plan
+       if: (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master') && github.event_name == 'pull_request'
+       run: cd infra && terraform plan
