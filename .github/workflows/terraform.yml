@@ -14,10 +14,10 @@ jobs:
      - name: Terraform Init
        id: init
        if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
-       run: cd ../../infra && terraform init
+       run: terraform chdir=infra init
      - name: Terraform Apply
        if: (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master') && github.event_name == 'push'
-       run: cd ../../infra && terraform apply
+       run: terraform -chdir=infra apply
      - name: Terraform Plan
        if: (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master') && github.event_name == 'pull_request'
-       run: cd ../../infra && terraform plan
+       run: terraform -chdir=infra plan
