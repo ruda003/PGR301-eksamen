@@ -135,3 +135,36 @@ aws-cli kan man deretter bruke kommandoen
 aws iam create-access-key
 ```
 for å lage nye nøkler.
+
+### Fork av repo
+
+Selve workflowen til Terraform fungerer ikke som den skal.
+Dette er fordi Terraform ikke klarer å finne
+konfigurasjonsfilene.
+Måten det skulle funket på er at man går inn i
+`Settings » Secrets` og endrer nøkkelen `TF_API_TOKEN`
+til din egen.
+![](img/img6.png)
+
+Verdiene i `provider.tf` og `aws.tf` må endres på
+slik at man bruker egen bucket.
+Man må også huske på å legge til AWS token også ved
+å bruke
+`aws configure`.
+
+# Oppgave: Docker
+
+For å bygge en container, gjøres det slik:
+```shell
+docker build -t "container-name" .
+```
+
+For å starte containeren på port 7777:
+```shell
+docker run --name "your-name-here" -it "container-name" -p 7777:8080
+```
+For å kjøre to containere samtidig, endrer du porten:
+```shell
+docker run --name "your-name-here" -it "container-name" -p 7777:8080
+docker run --name "your-other-name-here" -it "container-name" -p 8888:8080
+```
