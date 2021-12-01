@@ -88,4 +88,50 @@ og samtidig kalle `super()` for å forårsake
 en exception.
 
 Metrics blir sendt til Influx
-sammen med 
+som inkluderer informasjon om krasjen.
+
+Man kan hente ut informasjonen i Influx
+ved å spørre
+```sql
+select * from bankaccount_errors
+```
+
+Med Grafana hadde jeg problemer med å koble
+opp Influx: ![](img/img4.png)
+Jeg kunne heller ikke kjøre applikasjonen
+lenger ettersom IntelliJ bestemte seg
+for å ha en liten episode: ![](img/img5.png)
+Det er verd å nevne at filene eksisterer,
+og GitHub Actions har ingen problemer
+med dem, bare lokal IntelliJ av en eller
+annen grunn. (Er ikke teknologi _gøy_?)
+
+# Oppgave: Terraform
+Grunnen til at teamet ikke får kjøre
+`terraform apply` med bucket-filen er
+fordi en bucket med dette navnet allerede
+eksisterer, og `resource` prøver å lage
+ny bucket og feiler når en eksisterer.
+Man bør da enten importere bucketen eller
+bruke `data` for å slippe feilmeldingen.
+
+Grunnen for at det fungerte for Jens
+var at `.tfstate`-filen ble laget
+mens han brukte en eldre versjon, hvor
+dette problemet ikke var en ting,
+men som senere har oppstått.
+
+Ved bruk av følgende kommando fikk jeg laget
+en bucket:
+```bash
+aws s3api create-bucket --bucket pgr301-ruda003-terraform --region eu-west-1 --create-bucket-configuration LocationConstraint=eu-west-1
+```
+
+Uten at brukeren har eksisterende nøkler
+må vedkommende inn på AWS-siden for å
+lage en nøkkel. Ved å så konfigurere
+aws-cli kan man deretter bruke kommandoen
+```bash
+aws iam create-access-key
+```
+for å lage nye nøkler.
